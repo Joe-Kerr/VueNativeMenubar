@@ -1,0 +1,31 @@
+{
+  "name": "@joe_kerr/vue-native-menubar",
+  "version": "0.1.0",
+  "description": "Data driven native main menu for Vue.",
+  "main": "./src/index.js",
+  "module": "./src/index.js",
+  "author": "joe_kerr / Joe-Kerr",
+  "license": "ISC",
+  "repository": "github:Joe-Kerr/VueNativeMenubar",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev:test:unit": "vue-cli-service test:unit --ui qunit --recursive tests/unit/**/*.js",
+    "dev:build": "vue-cli-service build --target lib --name nativeMenubar --entry ./src/index.js --dest ./dist"
+  },
+  "dependencies": {
+    "@joe_kerr/stackthemmodals": "^1.0.7"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^3.12.1",
+    "@vue/cli-plugin-pwa": "^3.12.1",
+    "@vue/cli-plugin-unit-mocha": "^3.12.1",
+    "@vue/cli-service": "^3.12.1",
+    "@vue/test-utils": "1.0.0-beta.29",
+    "chai": "^4.1.2",
+    "jsdom": "^15.2.0",
+    "less": "^3.10.3",
+    "less-loader": "^4.1.0",
+    "sinon": "^7.5.0",
+    "vue-template-compiler": "^2.5.21"
+  }
+}

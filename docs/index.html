@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>		
+		<meta charset="UTF-8" />
+		
+		<meta http-equiv="cache-control" content="no-cache" />
+		<meta http-equiv="expires" content="0">
+		<meta http-equiv="pragma" content="no-cache">			
+		
+		<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'  https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js; img-src 'self' 'unsafe-inline' data:; "/>
+		
+		<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+		
+		<script src="./nativeMenubar.umd.min.js"></script>
+		<link rel="stylesheet" href="./nativeMenubar.css">
+		<link rel="stylesheet" href="./demo.css">
+
+	</head>
+
+<body>
+
+<div id="v"></div>
+
+<script>
+(function() {
+	const menuData = [
+		{label: "File", submenu: [
+			{label: "Open...", accelerator: "Ctrl+O", click() { setTimeout(()=>{v.feedback += " Also, a custom click handler on the menu data was invoked.";},1); }},
+			{label: "Save as", submenu: [{label: "xml"}, {label: "json"}, {label: "csv"}]},
+			{type: "separator"},
+			{label: "Quit", accelerator: "Ctrl+Q"}
+		]},
+		{label: "Edit", submenu: [
+			{label: "Cut", accelerator: "Ctrl+X"},
+			{label: "Copy", accelerator: "Ctrl+C"},
+			{label: "Paste", accelerator: "Ctrl+V"},
+			{type: "separator"},
+			{label: "Search...", accelerator: "Ctrl+S"}
+		]},
+		{label: "Help", submenu: [{label: "About"}]},
+	];
+
+	window.v = new Vue({
+		el: "#v",
+		components: {"menu-bar": nativeMenubar.component },
+		template: `
+		<div>
+			<p>Log: {{feedback}}</p>
+			<menu-bar
+				:menu="menu"
+				:showAccelerators="true"
+				
+				@itemExecute="showMsg"
+			/>
+		</div>
+		`,
+		data() {
+			return {
+				menu: null,
+				feedback: ""
+			}
+		},
+		methods: {
+			showMsg(event) {
+				this.feedback = "Event '"+event.eventSource.type+"' for menu item '"+event.item.label+"'.";
+			}
+		},
+		created() {
+			this.menu = menuData;
+			
+			document.addEventListener("keydown", (event)=>{
+				if(["o", "q", "x", "c", "v", "s"].indexOf(event.key) > -1 && event.ctrlKey) {
+					event.preventDefault();
+					this.feedback = "Notice: Accelerators are shown only. No listeners will be set up for them!";
+				}				
+			});
+		}
+	
+	});
+})()
+</script>
+
+</body>
+</html>

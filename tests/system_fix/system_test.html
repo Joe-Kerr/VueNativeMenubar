@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		
+		<meta http-equiv="cache-control" content="no-cache" />
+		<meta http-equiv="expires" content="0">
+		<meta http-equiv="pragma" content="no-cache">			
+		
+		<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'  https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js; img-src 'self' data:" />
+		
+		<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+				
+		<link rel="stylesheet" href="../../dist/nativeMenubar.css">
+		<style>			
+			div.native-menubar_item--toplevel {
+				min-width: 50px;
+			}
+		</style>		
+		<title>ready</title>
+	</head>
+
+<body>
+
+<div id="v"></div>
+
+<script src="../../dist/nativeMenubar.umd.js"></script>
+<script src="./testmenu.json.js"></script>
+
+<script>
+const component = nativeMenubar.component;
+const menu = testmenu;
+
+(function() {
+
+	window.v = new Vue({
+		el: "#v",
+		template: `
+			<main>
+			<header>
+				<menu-bar 
+					:menu="menu"
+					:menuShowTimeoutMs="150"
+				/>
+				
+			</header>
+			<footer style="position:fixed; bottom: 0px;">
+				<button id="reset" @click="reset">r</button> 
+				<div id="activeMenuItems"></div>
+				<div id="itemInFocus"></div>
+				<div id="idMap"></div>
+			</footer>
+			</main>
+		`,
+		computed: {
+
+		},
+		data() {
+			return {
+				menu: null
+			}
+		},
+		methods: {
+			reset() {
+				document.getElementById("itemInFocus").textContent = "[]";
+				document.getElementById("activeMenuItems").textContent = "[]";
+			}
+		},
+		components: {
+			"menu-bar": component
+		},
+		created() {
+			this.menu = menu;
+		},
+		
+		mounted() {
+			const idMapping = {};
+			const itemIds = this.$children[0].menuItemsFlat.map((itemWrapper)=>({uid: itemWrapper.uid, domId: itemWrapper.item.label}));
+			
+			itemIds.forEach((ids)=>{
+				idMapping[ids.domId] = ids.uid
+			});
+			
+			document.getElementById("idMap").textContent = JSON.stringify(idMapping);
+		}
+	
+	});
+})()
+</script>
+
+</body>
+</html>

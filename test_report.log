@@ -1,0 +1,221 @@
+Unit test report 
+
+ MOCHA  Testing...
+
+
+
+  menubar.js
+    √ props.modalServiceUser.validator ensure proper interface
+    √ computed.activeSubmenus returns array of submenu wrappers from activeSubmenusIds
+    √ computed.rootMenuItems returns item wrappers of original menu's root items
+    √ computed.modalService returns user provided service or falls back to system service
+    √ computed.vars returns bundled properties based on input mode
+    √ watch.isMenuActive calls modal service with expected parameters on activation
+    √ watch.isMenuActive calls modal service with expected parameters on deactivation
+    √ methods.setCursor updates current and previous cursor items and uids
+    √ methods.setCursor calls getItemByUid with its parameter
+    √ methods.switchInputMode returns false if new input mode is equal to old mode
+    √ methods.switchInputMode calls mode's exit function
+    √ methods.switchInputMode calls mode's enter function
+    √ methods.switchInputMode calls mode's exit fuction before enter function
+    √ methods.switchInputMode sets new input mode
+    √ methods.switchInputMode throws for undefined mode
+    √ methods.dispatchItemEvent calls $emit with event name and event details
+    √ methods.dispatchItemEvent calls user provided click callback with expected parameters
+    √ created calls buildMenuFromTemplate with menu property
+    √ mounted registered window blur listener with deactivateMenu callback
+    √ destroyed calls deactivateMenu
+    √ destroyed removes window blur listener with deactivateMenu callback
+
+  menubar.methods.initialisation.js
+    √ buildMenuFromTemplate converts recursive menu to flat array
+    √ buildMenuFromTemplate stores flat array members in menu item wrappers
+    √ buildMenuFromTemplate stores flat array members' first level submenus in menu item wrappers
+    √ buildMenuFromTemplate stores untouched references to original menu items
+
+  menubar.methods.keyboardInteraction.js
+    √ keydownDelegationCallback calls getItemByUid with expected parameters
+    √ keydownDelegationCallback calls switchInputMode with 'keyboard'
+    √ keydownDelegationCallback calls keydownCallback with expected parameters
+    √ keydownDelegationCallback calls topItemKeydownCallback with expected parameters
+    √ keydownCallback calls event.preventDefault for processed keys
+    √ keydownCallback calls goVerticalMenu with expected parameters
+    √ keydownCallback calls goRight with expected parameters
+    √ keydownCallback calls goLeft with expected parameters
+    √ keydownCallback executes item with expected parameters
+    √ topItemKeydownCallback calls event.preventDefault for processed keys
+    √ topItemKeydownCallback calls goVerticalTopLevel with expected parameters
+    √ topItemKeydownCallback calls goRightTopLevel with expected parameters
+    √ topItemKeydownCallback calls goLeftTopLevel with expected parameters
+    √ setKeyboardCursor calls setCursor with its parameter
+    √ setKeyboardCursor sets indices with return values of lookups
+    √ getUidThatIsNotSeparator passes through item uid if it is not a separator
+    √ getUidThatIsNotSeparator returns first item uid that is not a separator by going backwards
+    √ getUidThatIsNotSeparator returns first item uid that is not a separator by going forwards
+    √ getUidThatIsNotSeparator skips items if going out of bounds
+    √ getUidThatIsNotSeparator returns null if all items are separators
+    √ getActiveSubmenu returns last element in submenus array or undefined
+    √ getElementAtNextIndex returns element, index at next index by direction
+    √ getElementAtNextIndex loops around at array bounds
+    √ goHorizontalTopLevel sets new cursor without submenus open
+    √ goHorizontalTopLevel sets new cursor with submenu open
+    √ goHorizontalTopLevel calls helper functions with expected parameters
+    √ goVerticalMenu moves cursor up or down
+    √ goVerticalMenu moves cursor to top or bottom in submenu
+    √ goRight moves cursor to first item in submenu
+    √ goRight calls goHorizontalTopLevel with direction parameter
+    √ goLeft closes last submenu and moves cursor to its parent item
+    √ goLeft closes last submenu and leaves cursor at current item if cursor is over item with submenu that is opened
+    √ goLeft calls goHorizontalTopLevel with direction parameter
+    √ goVerticalTopLevel moves cursor to top or bottom of submenu if submenu open
+    √ goVerticalTopLevel opens first submenu and moves cursor to first item
+    √ goRightTopLevel calls goHorizontalTopLevel with direction parameter
+    √ goLeftTopLevel calls goHorizontalTopLevel with direction parameter
+
+  menubar.methods.menubarActivation.js
+    √ toggleMenuActive activates or deactivate menu depending on menu active state
+    √ toggleMenuActive calls activateMenu with its paramter
+    √ activateMenu sets menu active state true
+    √ activateMenu calls showSubmenu with its parameter
+    √ deactivateMenu sets menu active state false
+    √ deactivateMenu calls hideAllSubmenus
+    √ deactivateMenu calls resetMenuState
+    √ deactivateMenu calls hideAllSubmenus before resetMenuState
+    √ resetMenuState nulls expected properties
+    √ resetMenuState calls switchInputMode with null
+
+  menubar.methods.mouseInteraction.js
+    √ setHighlightedItems sets currently focused item uid
+    √ setHighlightedItems copies opened submenu ids to highlighted ids until mouseover'ed submenu
+    √ setMouseCursor calls setCursor with its uid parameter
+    √ setMouseCursor writes its index parameters to properies
+    √ handleRenderNewSubmenu calls showSubmenu with parameter uid if item has no submenu and uid not yet rendered
+    √ handleDestroySubmenu does nothing if mouse is not moving back or is over last opened submenu
+    √ handleDestroySubmenu calls hideSubmenusAfterThisId with active menu's id if mouse is moving back
+    √ handleDestroySubmenu does nothing if mouse is not moving back or over last opened submenu
+    √ openCloseSubmenu calls getSubmenuTransitVector with previous and current active submenu index
+    √ openCloseSubmenu calls setMouseCursor with expected parameters
+    √ openCloseSubmenu calls handleDestroySubmenu with expected parameters
+    √ openCloseSubmenu calls handleRenderNewSubmenu with expected parameters
+    √ openCloseSubmenu calls critical functions in correct order
+    √ delayOpenCloseSubmenu stores timeout reference and calls it with expected parameters
+    √ delayOpenCloseSubmenu returns before callback if menu became inactive
+    √ delayOpenCloseSubmenu calls callback with its parameters
+    √ cancelOpenCloseSubmenu calls clearTimeout with current timeout reference
+    √ syncHighlightedWithActiveItems clears array of highlighted submenu ids, then copies opened submenu ids into it
+    √ itemClickCallback calls dispatchItemEvent with its parameters
+    √ itemClickCallback calls deactivateMenu
+    √ itemMouseenterCallback calls switchInputMode with 'mouse'
+    √ itemMouseenterCallback calls setHighlightedItems with expected parameters
+    √ itemMouseenterCallback calls cancelOpenCloseSubmenu
+    √ itemMouseenterCallback calls delayOpenCloseSubmenu with expected parameters
+    √ topItemClickCallback calls toggleMenuActive with its parameter
+    √ topItemClickCallback calls switchInputMode, if menu is active, with expected parameters
+    √ topItemClickCallback calls setMouseCursor, if menu is active, with expected parameters
+    √ topItemClickCallback calls setHighlightedItems, if menu is active, with expected parameters
+    √ topItemMouseenterCallback calls switchInputMode, if menu is active, with 'mouse'
+    √ topItemMouseenterCallback calls gotoSubmenuRoot, if menu is active, with its parameter
+    √ topItemMouseenterCallback calls setMouseCursor, if menu is active, with its parameter
+    √ topItemMouseenterCallback calls setHighlightedItems, if menu is active
+    √ topItemMouseenterCallback calls cancelOpenCloseSubmenu, if menu is active
+    √ mouseInputModeExit calls cancelOpenCloseSubmenu
+    √ mouseInputModeExit calls syncHighlightedWithActiveItems
+    √ mouseInputModeExit calls setCursor with focused item uid
+    √ mouseInputModeExit nulls focused item uid
+
+  menubar.methods.queries.js
+    √ getIndexOfItemInMenuByUid returns index of item in submenu or null
+    √ getIndexOfItemInMenuByUid calls getItemByUid with its parameter
+    √ getItemByUid returns item with id of parameter or null
+    √ getParentItemUidByUid returns id of item in submenu or null
+    √ getParentItemUidByUid calls getItemByUid with its parameter
+    √ getSubmenuIndexByMemberUid returns index of submenu that is active or -1
+    √ getSubmenuIndexByMemberUid calls getParentItemUidByUid with its parameter
+    √ getSubmenuTransitVector returns difference of parameters
+    √ getSubmenuTransitVector returns 0 if any parameter is null
+
+  menubar.methods.submenusAddRemove.js
+    √ showSubmenu pushes parameter id into activeSubmenus
+    √ hideLastSubmenu removes last element from activeSubmenus
+    √ hideAllSubmenus clears activeSubmenus
+    √ hideAllSubmenus preserves references to activeSubmenus
+    √ hideSubmenusAfterThisId removes all id entries after the parameter id from activeSubmenus
+    √ gotoSubmenuRoot hides all current menus and shows menu of parameter id
+    √ all functions return $nextTick call
+
+  menuItemCommonMixins.js
+    √ computed.isFocused returns true if its uid is equal to the focused uid
+    √ computed.isActive returns true if its uid is within path of highlighted items
+    √ computed.label returns item's label otherwise falls back to capitalised role or id, or 'Unnamed'
+    √ watch.isFocused focuses or blurs $ref relative to isFocus property
+
+  menuItemFunctional.vue
+    √ computed.hasSubmenu returns true or false if item has items in its submenu
+    √ hasClickListner returns 'click' if item has no submenu, otherwise null
+    √ methods.clickIem calls item component click callback with expected parameters
+    √ methods.notifyParentMouseEnteredItem calls mouseenter item callback of top level items immediately
+    √ methods.notifyParentMouseEnteredItem calls mouseenter item callback with expected parameters
+
+  submenu.vue
+    √ computed.style returns correct x/y-coordinates for top level menu item
+    √ computed.style returns correct x/y-coordinates for sub level menu item
+    √ computed.style uses the correct composite id for querying parent DOM element
+    √ methods.getComponentType translates item.type to component name
+
+
+  138 passing 
+
+ MOCHA  Tests completed successfully
+
+
+System test report 
+
+
+
+  Basic keyboard interaction
+    √ With focus on root item by mouse click, left arrow focuses neighbouring left item and opens its submenu 
+    √ With focus on root item by mouse click, left arrow focuses on last item if active focus on first item 
+    √ With focus on root item by mouse click, right arrow focuses neighbouring right item and opens its submenu 
+    √ With focus on root item by mouse click, right arrow focuses on first item if active focus on last item 
+    √ With focus on root item by mouse click, up arrow focuses on last item in submenu 
+    √ With focus on root item by mouse click, down arrow focuses on first item in submenu 
+    √ With focus on submenu item, left arrow closes all submenus up to the focused menu 
+    √ With focus on submenu item, left arrow moves cursor to first submenu item of neighbouring left root item if no other submenus are opened 
+    √ With focus on submenu item with submenu itself, right arrow opens sub-submenu 
+    √ With focus on submenu item without submenu, right arrow moves cursor to first submenu item of neighbouring right root item 
+    √ With focus on submenu item, up arrow moves cursor up by one 
+    √ With focus on submenu item, up arrow moves cursor to last item if focus on first 
+    √ With focus on submenu item, down arrow moves cursor down by one 
+    √ With focus on submenu item, down arrow moves cursor to first item if focus on last 
+    √ Cursor up and down movement does not open submenus 
+    √ With mouse over item with submenu, down arrow moves cursor to first item in sub-submenu 
+    √ With mouse over item with submenu, up arrow moves cursor to last item in sub-submenu 
+    √ With mouse over item with submenu while sub-submenu open, right arrow moves cursor to first submenu item of neighbouring right root item 
+
+  Keyboard / mouse switching
+    √ Mouse over to an item with submenu, then arrow right, is supposed to go to next top level menu 
+    √ Close submenu with keyboard (arrow left) then continue navigation with mouse in same submenu 
+    √ Keyboard navigation after mouse entered item with submenu but before submenu delay, cancels delayed submenu 
+    √ If mouse stays over item, then keyboard navigation, then moving mouse again: cannot detect mouseenter event yet 
+
+  Basic mouse interaction
+    √ Click on inactive menubar item renders submenu 
+    √ Click on active menubar item deactivates menubar 
+    √ Click on outside menubar deactivates menubar 
+    √ Click on submenu item with submenu does nothing 
+    √ Mouseover active menubar renders respective submenus 
+    √ Mouseover submenu item with submenu renders sub-submenu 
+    √ Mouseover submenu item with submenu while another submenu is open destroyes opened sub-submenu and renders new sub-submenu 
+    √ Mouseover renders nested submenus 
+    √ Mouseover from a 3rd level submenu into a 1st level submenu item with submenu, destroys 3rd and 2nd level submenus 
+    √ Mouseover from a 3rd level submenu, while a 4th level submenu is still opened, into a 1st level submenu item with submenu, destroys 4th, 3rd and 2nd level submenus 
+    √ Highlighting and focus reset when swichting between nested submenus 
+    √ Highlighting and focus reset when switching between nested submenus under the menu show delay 
+    √ Highlighting and focus reset when moving between top level items through submenu 
+    √ Highlighting and focus cleared when click-deactivating menu after switching from top menu item to submenu 
+    - Highlighting and focus cleared when modal-deactivating menu
+
+
+  36 passing 
+  1 pending
+

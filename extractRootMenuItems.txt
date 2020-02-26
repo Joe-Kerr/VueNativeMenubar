@@ -1,0 +1,9 @@
+this.extractRootMenuItems(this.menuItemsFlat, this.rootMenuItems);
+
+		extractRootMenuItems(source, target) {
+			source.forEach((itemWrapper)=>{
+				if(this.menu.indexOf(itemWrapper.item) > -1) {
+					target.push(itemWrapper);
+				}
+			});
+		}
