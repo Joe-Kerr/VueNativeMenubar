@@ -1,6 +1,6 @@
 {
   "name": "@joe_kerr/vue-native-menubar",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Data driven native main menu for Vue.",
   "main": "./src/index.js",
   "module": "./src/index.js",

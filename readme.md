@@ -218,6 +218,9 @@ Platform specific features are not yet implemented. Also, there will be a lot of
 
 ## Versions
 
+### 0.1.1
+- New: Configurable html template classes
+
 ### 0.1.0
 - First public release
 
