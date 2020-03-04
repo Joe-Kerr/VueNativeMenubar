@@ -2,7 +2,7 @@
 	<div
 		:id="vars.itemIdPrefix+uid" 
 		class="native-menubar_item native-menubar_item--toplevel"
-		:class="{'native-menubar_item--active': isActive}"		
+		:class="[vars.css.itemBaseClass, vars.css.itemTopClass, activeClass]"	
 		:ref="'i'+uid"
 		
 		tabindex="0"	
@@ -23,8 +23,5 @@ export default {
 <style>
 .native-menubar_item--toplevel {
 	display: inline-block;
-	
-	padding-left: 4px;
-	padding-right: 6px;
 }
 </style>

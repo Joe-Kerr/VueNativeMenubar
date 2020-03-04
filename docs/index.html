@@ -35,7 +35,7 @@
 			{label: "Copy", accelerator: "Ctrl+C"},
 			{label: "Paste", accelerator: "Ctrl+V"},
 			{type: "separator"},
-			{label: "Search...", accelerator: "Ctrl+S"}
+			{label: "Search...", accelerator: "Ctrl+F"}
 		]},
 		{label: "Help", submenu: [{label: "About"}]},
 	];
@@ -46,9 +46,12 @@
 		template: `
 		<div>
 			<p>Log: {{feedback}}</p>
+			<select v-model="selectedTheme" style="margin-bottom: 10px;"> <option v-for="o in availableThemes">{{o}}</option> </select>
+
 			<menu-bar
 				:menu="menu"
 				:showAccelerators="true"
+				:css="theme"
 				
 				@itemExecute="showMsg"
 			/>
@@ -57,7 +60,58 @@
 		data() {
 			return {
 				menu: null,
-				feedback: ""
+				feedback: "",
+				selectedTheme: "themeA",
+				availableThemes: ["themeA", "themeB"],
+				themeA: {
+					menubarClass: "themeA_menubar",
+					
+					submenuClass: "themeA_submenu",
+
+					itemBaseClass: "themeA_itemBase",
+
+					itemTopClass: "themeA_itemTop",
+					itemSeparatorClass: "themeA_itemSeparator",
+					itemFunctionalClass: "themeA_itemFunctional",
+
+					itemContentClass: "themeA_item--content",
+					itemLeftClass: "themeA_item--left",
+					itemMiddleClass: "themeA_item--middle",
+					itemRightClass: "themeA_item--right",
+
+					itemActiveClass: "themeA_item--active",		
+				},
+				themeB: {
+					menubarClass: "themeB_menubar",
+					
+					submenuClass: "themeB_submenu",
+
+					itemBaseClass: "themeB_itemBase",
+
+					itemTopClass: "themeB_itemTop",
+					itemSeparatorClass: "themeB_itemSeparator",
+					itemFunctionalClass: "themeB_itemFunctional",
+
+					itemContentClass: "themeB_item--content",
+					itemLeftClass: "themeB_item--left",
+					itemMiddleClass: "themeB_item--middle",
+					itemRightClass: "themeB_item--right",
+
+					itemActiveClass: "themeB_item--active",		
+				},
+			}
+		},
+		computed: {
+			theme() {return this[this.selectedTheme];}
+		},
+		watch: {
+			selectedTheme(val) {
+				if(val === "themeA") {
+					document.body.style.backgroundColor = "white";
+				}
+				else {
+					document.body.style.backgroundColor = "grey";
+				}
 			}
 		},
 		methods: {
@@ -69,7 +123,7 @@
 			this.menu = menuData;
 			
 			document.addEventListener("keydown", (event)=>{
-				if(["o", "q", "x", "c", "v", "s"].indexOf(event.key) > -1 && event.ctrlKey) {
+				if(["o", "q", "x", "c", "v", "f"].indexOf(event.key) > -1 && event.ctrlKey) {
 					event.preventDefault();
 					this.feedback = "Notice: Accelerators are shown only. No listeners will be set up for them!";
 				}				

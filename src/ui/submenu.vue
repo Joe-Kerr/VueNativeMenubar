@@ -1,5 +1,5 @@
 <template>
-	<div class="native-menubar_submenu" :style="style">
+	<div class="native-menubar_submenu" :class="vars.css.submenuClass" :style="style">
 		<component
 			:is="getComponentType(itemWrapper.item)"
 			v-for="(itemWrapper, index) in menu" 
@@ -64,11 +64,5 @@ export default {
 <style>
 .native-menubar_submenu {
 	position: fixed;
-	
-	padding: 6px 4px 6px 6px;
-	
-    background-color: #f0f0f0;
-    border-color: #f5f5f5;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);	
 }
 </style>

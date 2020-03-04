@@ -27,6 +27,35 @@ export default {
 			return (typeof service.push === "function" && typeof service.forcePop === "function");
 		}},
 		
+		css: {type: Object, default: function() { return {}; }, validator(input) {
+			const validKeys = [
+				"menubarClass",
+				"submenuClass",
+				"itemBaseClass",
+				"itemTopClass",
+				"itemSeparatorClass",
+				"itemFunctionalClass",
+				"itemContentClass",
+				"itemLeftClass",
+				"itemMiddleClass",
+				"itemRightClass",
+				"itemActiveClass",			
+			];
+			
+			for(const cssKey in input) {
+				if(validKeys.indexOf(cssKey) === -1) {
+					console.error("Fail to validate 'css' prop of Native Menubar component. Illegal css selector: "+cssKey);
+					return false;
+				}
+				
+				if(typeof input[cssKey] !== "string") {
+					console.error("Fail to validate 'css' prop of Native Menubar component. Css selector must be a string.");
+					return false;					
+				}
+			}
+			return true;
+		}},
+		
 		/*//#todo
 		enableKeyboardCursor: {type: Boolean, default: false},
 		enableEscapeClose: {type: Boolean, default: false},		
@@ -73,7 +102,10 @@ export default {
 			return {
 				focusedUid: (isMouseMode) ? this.focusedUid : this.currentCursorItemUid,
 				highlightedUids: (isMouseMode) ? this.highlightedUids : this.activeSubmenusIds,
-				itemIdPrefix: "native-menubar_item--"
+				
+				itemIdPrefix: "native-menubar_item--",
+				itemDefaultActiveClass: "native-menubar_item--active",
+				css: this.css		
 			};
 		}
 	},

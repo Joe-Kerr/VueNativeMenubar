@@ -17,6 +17,18 @@ test("props.modalServiceUser.validator ensure proper interface", ()=>{
 	assert.strictEqual(validator({push: noop, forcePop: noop}), true);
 });
 
+test("props.css.validator ensures proper interface", ()=>{
+	const backup = console.error;
+	const validator = sample.props.css.validator;
+	console.error = ()=>{};
+	
+	assert.strictEqual(validator({bollocks: "fails"}), false);
+	assert.strictEqual(validator({menubarClass: 8008}), false);
+	assert.strictEqual(validator({menubarClass: "valid"}), true);
+	
+	console.error = backup;
+});
+
 
 test("computed.activeSubmenus returns array of submenu wrappers from activeSubmenusIds", ()=>{
 	const getItemByUid = (id)=>{
@@ -82,14 +94,16 @@ test("computed.vars returns bundled properties based on input mode", ()=>{
 		activeSubmenusIds: 2,
 		
 		focusedUid: 3,
-		highlightedUids: 4
+		highlightedUids: 4,
+		
+		css: 5
 	};
 	
 	context.inputMode = "mouse";
-	assert.deepEqual( sample.computed.vars.call(context), {focusedUid: 3, highlightedUids: 4, itemIdPrefix: "native-menubar_item--"} );	
+	assert.deepEqual( sample.computed.vars.call(context), {css: 5, focusedUid: 3, highlightedUids: 4, itemDefaultActiveClass: "native-menubar_item--active", itemIdPrefix: "native-menubar_item--"} );	
 	
 	context.inputMode = "else";
-	assert.deepEqual( sample.computed.vars.call(context), {focusedUid: 1, highlightedUids: 2, itemIdPrefix: "native-menubar_item--"} );
+	assert.deepEqual( sample.computed.vars.call(context), {css: 5, focusedUid: 1, highlightedUids: 2, itemDefaultActiveClass: "native-menubar_item--active", itemIdPrefix: "native-menubar_item--"} );
 });
 
 

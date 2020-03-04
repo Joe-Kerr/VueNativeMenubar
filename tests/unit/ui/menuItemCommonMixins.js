@@ -46,6 +46,29 @@ test("computed.label returns item's label otherwise falls back to capitalised ro
 	assert.equal(sample.computed.label.call(context), "Test passthrough");
 });
 
+test("computed.activeClass returns user class or falls back to default if item is active", ()=>{
+	const context = {
+		isActive: true,
+		vars: {
+			itemDefaultActiveClass: "default",
+			css: {itemActiveClass: "user"}
+		}
+	};
+	
+	assert.equal(sample.computed.activeClass.call(context), "user");
+	
+	delete context.vars.css.itemActiveClass;
+	assert.equal(sample.computed.activeClass.call(context), "default");
+});
+
+test("computed.activeClass returns empty string if item is inactive", ()=>{
+	const context = {
+		isActive: false
+	};
+	
+	assert.strictEqual(sample.computed.activeClass.call(context), "");	
+});
+
 test("watch.isFocused focuses or blurs $ref relative to isFocus property", ()=>{
 	const focus = new sinon.fake();
 	const blur = new sinon.fake();

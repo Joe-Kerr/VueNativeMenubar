@@ -6,6 +6,7 @@ Unit test report
 
   menubar.js
     √ props.modalServiceUser.validator ensure proper interface
+    √ props.css.validator ensures proper interface
     √ computed.activeSubmenus returns array of submenu wrappers from activeSubmenusIds
     √ computed.rootMenuItems returns item wrappers of original menu's root items
     √ computed.modalService returns user provided service or falls back to system service
@@ -147,6 +148,8 @@ Unit test report
     √ computed.isFocused returns true if its uid is equal to the focused uid
     √ computed.isActive returns true if its uid is within path of highlighted items
     √ computed.label returns item's label otherwise falls back to capitalised role or id, or 'Unnamed'
+    √ computed.activeClass returns user class or falls back to default if item is active
+    √ computed.activeClass returns empty string if item is inactive
     √ watch.isFocused focuses or blurs $ref relative to isFocus property
 
   menuItemFunctional.vue
@@ -163,7 +166,7 @@ Unit test report
     √ methods.getComponentType translates item.type to component name
 
 
-  138 passing 
+  141 passing 
 
  MOCHA  Tests completed successfully
 

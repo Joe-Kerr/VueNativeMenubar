@@ -23,6 +23,10 @@ export default {
 			}
 			
 			return "Unnamed";
+		},
+		
+		activeClass() {
+			return (this.isActive) ? this.vars.css.itemActiveClass || this.vars.itemDefaultActiveClass : "";
 		}
 	},
 	

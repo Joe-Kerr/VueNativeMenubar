@@ -117,11 +117,89 @@ Uses [internal service](https://github.com/Joe-Kerr/stackThemModals) by default.
 Default: undefined, (interal service)
 
 
+### css < Object >
+
+Object that holds key value pairs that let you apply dynamic class names; e.g. css: {menubarClass: "my-menu-bar"}
+
+[See below for details](#dynamic-classes).
+
+Default: {}
+
+
 ### @itemExecute(eventDetails) < function >
 
 Calls the callback function with {eventSource, item} where "eventSource" is the DOM event (mouse, keyboard) that triggered the event and "item" a reference to the menu item.
 
 Default: undefined
+
+
+## CSS theming
+
+The Vue Native Menubar offers two ways to apply css: predefined classes and dynamic classes as component properties.
+
+At present, there are no predefined themes. But see the demo.css file in the docs folder for some pointers. 
+
+### Predefined classes
+
+The classes below are predefined in the Vue components' templates. There is a minimal amount of styling predefined as well such as displying top level items inline. If you want to override the classes put the associate html tag in front as done below.
+
+- **nav**.native-menubar
+- div.native-menubar_submenu
+- div.native-menubar_item
+- div.native-menubar_item--separator
+- div.native-menubar_item--toplevel
+- div.native-menubar_item--functional
+- div.native-menubar_item--content
+- div.native-menubar_item--left
+- div.native-menubar_item--middle
+- div.native-menubar_item--right
+- div.native-menubar_item--active
+
+
+### Dynamic classes
+
+The Native Menubar component takes in a css property as an object. Below, in the class tags, are all valid keys and where they are located in the html. Your values will be inserted in place of the keys.
+
+```html
+<nav class="cssMenubarClass">
+
+ <div class="itemBaseClass itemTopClass">1</div> 
+ <div class="itemBaseClass itemTopClass">2</div> 
+  
+ <div class="submenuClass">
+ 
+  <div class="itemBaseClass itemFunctionalClass">
+    <div class="itemContentClass itemLeftClass"></div>
+    <div class="itemContentClass itemMiddleClass">1.1</div>
+    <div class="itemContentClass itemRightClass"></div>
+  </div>
+  
+  <div class="itemBaseClass itemSeparatorClass"></div>
+  
+  <div class="itemBaseClass itemFunctionalClass">
+    <div class="itemContentClass itemLeftClass"></div>
+    <div class="itemContentClass itemMiddleClass">1.2</div>
+    <div class="itemContentClass itemRightClass"></div>  
+  </div>
+  
+ </div>  
+ 
+ <div class="submenuClass">
+ 
+  <div class="itemBaseClass itemFunctionalClass">
+    <div class="itemContentClass itemLeftClass"></div>
+    <div class="itemContentClass itemMiddleClass">1.2.1</div>
+    <div class="itemContentClass itemRightClass"></div>
+  </div> 
+  
+ </div>
+
+</nav>
+```
+
+### System styles
+
+The top and left css properties of the submenus are applied inline. 
 
 
 ## Notes

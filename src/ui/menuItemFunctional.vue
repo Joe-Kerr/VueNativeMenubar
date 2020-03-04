@@ -2,7 +2,7 @@
 	<div 
 		:id="vars.itemIdPrefix+uid" 
 		class="native-menubar_item native-menubar_item--functional"
-		:class="{'native-menubar_item--active': isActive}"		
+		:class="[vars.css.itemBaseClass, vars.css.itemFunctionalClass, activeClass]"	
 		:ref="'i'+uid"
 		
 		tabindex="0"
@@ -10,15 +10,37 @@
 		@mouseenter="notifyParentMouseEnteredItem" 
 		@[hasClickListner]="clickItem"  
 	>
-		<div class="native-menubar_item--content native-menubar_item--left">
+		<div class="native-menubar_item--content native-menubar_item--left" :class="[vars.css.itemContentClass, vars.css.itemLeftClass]">
 		
 		</div>
 		
-		<div class="native-menubar_item--content native-menubar_item--middle">{{label}}</div>
+		<div class="native-menubar_item--content native-menubar_item--middle" :class="[vars.css.itemContentClass, vars.css.itemMiddleClass]">{{label}}</div>
 		
-		<div class="native-menubar_item--content native-menubar_item--right">
+		<div class="native-menubar_item--content native-menubar_item--right" :class="[vars.css.itemContentClass, vars.css.itemRightClass]">
 			<span v-if="item.accelerator && showAccelerators">{{item.accelerator}}</span> 
+						
+			<svg v-if="hasSubmenu" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 8" width="4" height="8">
+				<path d="M1.8 6.06L0 8.08L0 4.04L0 0L1.8 2.02L3.59 4.04L1.8 6.06Z" fill="currentColor"></path>
+			</svg>			
+			
+			<!--
+			Problem: does not scale size with font size
+			<svg v-if="hasSubmenu" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 8" width="4" height="8">
+				<path d="M1.8 6.06L0 8.08L0 4.04L0 0L1.8 2.02L3.59 4.04L1.8 6.06Z" fill="currentColor"></path>
+			</svg>				
+			-->
+			
+			<!--
+			Problem: requires font to know char (Win, Mac, Linux); may require size fiddling -> config prop
+			<span v-if="hasSubmenu" style="font-family: Helvetica sans-serif; font-size: 8px;">&#9654;</span>
+			'&#9654;'
+			'&#9652;'
+			-->
+			
+			<!--
+			Problem: cannot be colored, does not scale size with font size
 			<img v-if="hasSubmenu" alt=">" src="data:image/png;base64,R0lGODlhBAAHAIABACMtMP///yH5BAEAAAEALAAAAAAEAAcAAAIIRA4WaeyrVCgAOw==" />
+			-->
 		</div>
 
 	</div>
@@ -58,32 +80,15 @@ export default {
 .native-menubar_item--functional {}
 
 .native-menubar_item--active, 
-.native-menubar_item:focus:not(.native-menubar_item--separator) {
-	outline: 1px solid #99ccff;
-	border-radius: 4px;
-	background-color: #e9eff6;
-}
+.native-menubar_item:focus:not(.native-menubar_item--separator) {}
 
 .native-menubar_item--content {
 	display: inline-block;
 }
 
-.native-menubar_item--left {
-	width: 30px;
-}
+.native-menubar_item--left {}
 
-.native-menubar_item--middle {
-	min-width: 50px;
-	
-	border-left: 1px solid #ffffff;
-	box-shadow: -1px 0px 0px 0px #e2e3e3;
-}
+.native-menubar_item--middle {}
 
-.native-menubar_item--right {
-	text-align: right;
-	padding-left: 15px;
-	padding-right: 5px;
-	float: right;
-	min-width: 10px;
-}
+.native-menubar_item--right {}
 </style>
