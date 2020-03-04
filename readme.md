@@ -114,7 +114,7 @@ Default: false
 
 Uses [internal service](https://github.com/Joe-Kerr/stackThemModals) by default. See link for interface if you wish to override.
 
-Default: undefined, (interal service)
+Default: undefined, (internal service)
 
 
 ### css < Object >
